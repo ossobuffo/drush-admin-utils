@@ -2,10 +2,9 @@
     "name": "ossobuffo/drush-admin-utils",
     "description": "Low-bootlevel Drush commands to deal with Drupal caches and related issues.",
     "type": "drupal-drush",
-    "license": "GPL-2.0+",
+    "license": "GPL-2.0-or-later",
     "require": {
-        "php": ">=8.0.0",
-        "drupal/mysql": "*"
+        "php": ">=8.0.0"
     },
     "extra": {
         "installer-name": "dau",
