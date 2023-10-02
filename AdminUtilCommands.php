@@ -43,14 +43,12 @@ class AdminUtilCommands extends DrushCommands {
       ->execute()
       ->fetchCol();
     if (empty($schema_modules)) {
-      $this->io()->error("Unexpected error: No system.schema values found.");
-      return;
+      throw new CommandFailedException("Unexpected error: No system.schema values found.");
     }
 
     $ext_conf = $this->getExtConfig();
     if (!isset($ext_conf['module'])) {
-      $this->io()->error("Corrupt core.extension configuration.");
-      return;
+      throw new CommandFailedException("Corrupt core.extension configuration.");
     }
     $enabled_modules = array_keys($ext_conf['module']);
     $bad_schema_entries = array_diff_key($schema_modules, $enabled_modules);
@@ -82,8 +80,7 @@ class AdminUtilCommands extends DrushCommands {
     $this->ensureDb();
     $ext_conf = $this->getExtConfig();
     if (!isset($ext_conf['module'])) {
-      $this->io()->error("Corrupt core.extension configuration.");
-      return;
+      throw new CommandFailedException("Corrupt core.extension configuration.");
     }
     if (!array_key_exists($module, $ext_conf['module'])) {
       $this->io()->warning("Module '$module' already not enabled.");
@@ -111,8 +108,7 @@ class AdminUtilCommands extends DrushCommands {
     $this->ensureDb();
     $ext_conf = $this->getExtConfig();
     if (!isset($ext_conf['theme'])) {
-      $this->io()->error("Corrupt core.extension configuration.");
-      return;
+      throw new CommandFailedException("Corrupt core.extension configuration.");
     }
     if (!array_key_exists($theme, $ext_conf['theme'])) {
       $this->io()->warning("Theme '$theme' already not enabled.");
@@ -135,8 +131,7 @@ class AdminUtilCommands extends DrushCommands {
     $this->ensureDb();
     $ext_conf = $this->getExtConfig();
     if (!isset($ext_conf['profile']) || !is_string($ext_conf['profile'])) {
-      $this->io()->error("Corrupt core.extension configuration.");
-      return;
+      throw new CommandFailedException("Corrupt core.extension configuration.");
     }
     $old_profile = $ext_conf['profile'];
     if ($old_profile === $profile) {
