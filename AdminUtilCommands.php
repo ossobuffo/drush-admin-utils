@@ -138,7 +138,8 @@ class AdminUtilCommands extends DrushCommands {
       $this->io()->error("Corrupt core.extension configuration.");
       return;
     }
-    if (($old_profile = $ext_conf['profile']) === $profile) {
+    $old_profile = $ext_conf['profile'];
+    if ($old_profile === $profile) {
       $this->io()->warning("Profile $profile is already set.");
       return;
     }
