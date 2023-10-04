@@ -198,7 +198,13 @@ class AdminUtilCommands extends DrushCommands {
    * @return void
    */
   private function truncateCache(bool $verbose = FALSE): void {
-    $prefix = $this->db->getPrefix();
+    if (method_exists($this-db, 'getPrefix')) {
+      $prefix = $this->db->getPrefix();
+    }
+    else {
+      // Fall back to pre-Drupal-10.1 syntax.
+      $prefix = $this->db->tablePrefix();
+    }
     $driver = $this->db->getConnectionOptions()['driver'];
     switch ($driver) {
       case 'mysql':
