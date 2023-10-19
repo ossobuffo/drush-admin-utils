@@ -198,7 +198,7 @@ class AdminUtilCommands extends DrushCommands {
    * @return void
    */
   private function truncateCache(bool $verbose = FALSE): void {
-    if (method_exists($this-db, 'getPrefix')) {
+    if (method_exists($this->db, 'getPrefix')) {
       $prefix = $this->db->getPrefix();
     }
     else {
